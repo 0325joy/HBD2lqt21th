@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卢七七 21岁生日快乐！- 八颗心的记忆约定 💜</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts: Cute Handwritten & Display Style Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --purple-main: #9d4edd;
+            --purple-light: #e0aaff;
+            --purple-soft: #f3e8ff;
+            --purple-deep: #5a189a;
+        }
+
+        body {
+            font-family: 'Mali', 'ZCOOL KuaiLe', cursive, sans-serif;
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 40%, #d8b4fe 100%);
+            color: #3c096c;
+            min-height: 100vh;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        /* Wobbly Hand-Drawn Sketch Borders */
+        .sketch-box {
+            border: 3px solid #3c096c;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            box-shadow: 4px 5px 0px #3c096c;
+        }
+
+        .sketch-btn {
+            border: 3px solid #3c096c;
+            border-radius: 20px 8px 18px 10px / 12px 22px 9px 18px;
+            box-shadow: 3px 4px 0px #3c096c;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .sketch-btn:hover {
+            transform: scale(1.08) rotate(-2deg);
+            box-shadow: 5px 6px 0px #3c096c;
+        }
+
+        .sketch-btn:active {
+            transform: scale(0.95) translate(2px, 2px);
+            box-shadow: 1px 2px 0px #3c096c;
+        }
+
+        /* Hand-drawn Wiggle Animations */
+        @keyframes doodleWiggle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-3deg) scale(1.03); }
+            75% { transform: rotate(3deg) scale(0.97); }
+        }
+
+        @keyframes floatCloud {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-10px) translateX(8px); }
+        }
+
+        .animate-wiggle {
+            animation: doodleWiggle 3s ease-in-out infinite;
+        }
+
+        .animate-float-slow {
+            animation: floatCloud 5s ease-in-out infinite;
+        }
+
+        /* SVG Doodle Overlay Background */
+        .doodle-bg {
+            background-image: radial-gradient(#c084fc 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+        }
+
+        /* Envelope / Modal Paper Texture */
+        .paper-sketch {
+            background: #faf5ff;
+            background-image: radial-gradient(#e9d5ff 1px, transparent 1px);
+            background-size: 14px 14px;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f3e8ff;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c084fc;
+            border-radius: 10px;
+        }
+
+        /* Candle Flame Flicker */
+        @keyframes flameFlicker {
+            0%, 100% { transform: scale(1) rotate(-1deg); opacity: 1; }
+            50% { transform: scale(1.15) rotate(2deg); opacity: 0.85; }
+        }
+        .flame-anim {
+            animation: flameFlicker 0.6s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="doodle-bg relative flex flex-col justify-between items-center min-h-screen p-3 sm:p-6 text-purple-950">
+
+    <!-- Toast / Notification Alert Box -->
+    <div id="toast" class="fixed top-5 z-50 px-5 py-2.5 bg-purple-900 text-white font-bold text-xs sm:text-sm sketch-box hidden transition-all duration-300 transform -translate-y-full opacity-0 shadow-lg">
+        <span id="toastMsg">通知信息</span>
+    </div>
+
+    <!-- Floating Background Ornaments -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-40">
+        <i class="fa-solid fa-cloud text-white text-7xl absolute top-8 left-10 animate-float-slow"></i>
+        <i class="fa-solid fa-cloud-moon text-purple-200 text-8xl absolute top-1/4 right-8 animate-float-slow" style="animation-delay: 2s;"></i>
+        <i class="fa-solid fa-sparkles text-purple-400 text-3xl absolute top-20 right-1/4 animate-ping"></i>
+        <i class="fa-solid fa-star text-amber-300 text-2xl absolute bottom-32 left-12 animate-pulse"></i>
+        <i class="fa-solid fa-heart text-purple-300 text-3xl absolute bottom-16 right-20 animate-wiggle"></i>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="relative z-10 w-full max-w-4xl flex flex-col sm:flex-row justify-between items-center gap-4 my-2 px-4">
+        <div class="flex items-center gap-3">
+            <div class="w-14 h-14 bg-purple-100 sketch-box flex items-center justify-center text-purple-600 text-2xl animate-wiggle shrink-0">
+                🎂
+            </div>
+            <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-purple-900 tracking-wider">卢七七 21岁生日快乐！</h1>
+                    <span class="px-2.5 py-0.5 bg-purple-600 text-white text-xs font-bold rounded-full border border-purple-900 shadow-sm">11.1 专属</span>
+                </div>
+                <p class="text-xs sm:text-sm text-purple-700 font-semibold mt-0.5">
+                    ✨ 从初中到21岁 · 八个手绘印记里的美好时光
+                </p>
+            </div>
+        </div>
+
+        <!-- Controls: Music & Blow Candle -->
+        <div class="flex items-center gap-3">
+            <button id="musicToggle" onclick="toggleMusic()" class="px-4 py-2 bg-white sketch-btn text-purple-800 font-bold text-sm flex items-center gap-2 hover:bg-purple-50">
+                <i id="musicIcon" class="fa-solid fa-music text-purple-500"></i>
+                <span id="musicText">背景音乐: 关</span>
+            </button>
+            <button onclick="triggerCakeModal()" class="px-4 py-2 bg-amber-300 sketch-btn text-purple-900 font-bold text-sm flex items-center gap-1.5 hover:bg-amber-200">
+                <span>🎂 吹蜡烛</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN AREA: 8 Heart-shaped Hand-drawn Icon Buttons -->
+    <main class="relative z-10 my-auto flex flex-col items-center justify-center w-full max-w-2xl py-4 sm:py-6">
+        
+        <!-- Center Banner Guidance -->
+        <div class="mb-4 px-5 py-2.5 bg-white/90 sketch-box text-purple-900 text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm text-center">
+            <span class="text-pink-500 text-base">💌</span>
+            <span>点击心形线上的 8 个按钮，解锁属于卢七七的独家记忆吧！</span>
+        </div>
+
+        <!-- Heart Contour Container -->
+        <div id="heartContainer" class="relative w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] flex items-center justify-center">
+            
+            <!-- Standard Smooth & Full Heart SVG Path Line -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none stroke-purple-400 opacity-85" viewBox="0 0 100 100">
+                <path d="M 50,25 
+                         C 32,8  8,18  8,42 
+                         C 8,62  30,80  50,94 
+                         C 70,80  92,62  92,42 
+                         C 92,18  68,8  50,25 Z" 
+                      fill="none" 
+                      stroke-width="2.2" 
+                      stroke-dasharray="4,4" 
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
+
+            <!-- Center Decorative Text -->
+            <div class="absolute text-center pointer-events-none select-none animate-pulse">
+                <span class="text-xs text-purple-500 font-bold block tracking-widest">FOR LU QIQI</span>
+                <span class="text-xl sm:text-2xl text-purple-800 font-extrabold my-0.5">21st Birthday 💜</span>
+                <span class="text-[11px] text-purple-500 block font-semibold">Middle School ➔ Forever</span>
+            </div>
+
+            <!-- Heart Nodes are rendered via JS -->
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 my-3 text-center text-xs text-purple-700 font-semibold">
+        <p>💜 祝卢七七 11.1 生日快乐！所有美好的梦都在此刻实现~</p>
+    </footer>
+
+    <!-- MODAL 1: LETTER & PHOTO DISPLAY & EDITOR -->
+    <div id="letterModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-purple-950/60 backdrop-blur-sm hidden transition-opacity duration-300">
+        <div id="modalCard" class="relative w-full max-w-lg paper-sketch sketch-box overflow-hidden flex flex-col max-h-[90vh]">
+            
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-purple-400 via-purple-300 to-indigo-300 p-4 border-b-3 border-purple-950 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span id="modalIcon" class="text-2xl">📚</span>
+                    <h3 id="modalTitle" class="font-bold text-base sm:text-lg text-purple-950">Memory #1</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleEditMode()" class="w-8 h-8 rounded-full bg-white sketch-btn flex items-center justify-center text-purple-900 text-xs font-bold" title="编辑此信件">
+                        <i id="editIcon" class="fa-solid fa-pen"></i>
+                    </button>
+                    <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-white sketch-btn flex items-center justify-center text-purple-900 text-xs font-bold" title="关闭">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body Content -->
+            <div class="p-4 sm:p-6 overflow-y-auto custom-scrollbar flex-1 flex flex-col gap-4">
+                
+                <!-- Display Mode -->
+                <div id="displayArea" class="space-y-4">
+                    <!-- Polaroid Style Photo Frame -->
+                    <div class="relative mx-auto w-full max-w-[310px] bg-white p-3 pt-3 pb-5 rounded-lg border-2 border-purple-900 shadow-md transform -rotate-1 hover:rotate-0 transition-transform">
+                        <div class="overflow-hidden rounded border border-purple-200 aspect-[4/3] bg-purple-100 flex items-center justify-center relative">
+                            <img id="modalPhoto" src="" alt="Memory Photo" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/e9d5ff/5a189a?text=Sweet+Memory+With+Qiqi'">
+                            <div class="absolute bottom-2 right-2 bg-purple-900/80 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">
+                                📷 珍藏回忆
+                            </div>
+                        </div>
+                        <p id="modalPhotoTag" class="text-center text-xs text-purple-800 font-bold mt-3 tracking-wide">—— 卢七七 & 我 ——</p>
+                    </div>
+
+                    <!-- Letter Box -->
+                    <div class="bg-white/90 p-4 rounded-xl border-2 border-dashed border-purple-400 relative shadow-sm">
+                        <div class="absolute -top-3 right-3 bg-purple-200 border border-purple-500 rounded px-2 py-0.5 text-[10px] font-bold text-purple-900 rotate-3">
+                            11.1 Birthday Post
+                        </div>
+
+                        <p class="font-bold text-purple-900 text-sm mb-2">
+                            To: <span id="modalTo" class="underline decoration-purple-400 decoration-wavy">亲爱的卢七七</span>
+                        </p>
+
+                        <div id="modalText" class="text-purple-950 text-xs sm:text-sm leading-relaxed whitespace-pre-line font-medium min-h-[90px]">
+                            信件内容加载中...
+                        </div>
+
+                        <p class="text-right font-extrabold text-purple-800 text-xs mt-3">
+                            Forever Friend ❤️
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Edit Mode Form (Hidden by Default) -->
+                <div id="editArea" class="hidden space-y-3 bg-purple-100/80 p-4 rounded-xl border-2 border-purple-300">
+                    <h4 class="font-bold text-purple-900 text-xs flex items-center gap-1">
+                        <i class="fa-solid fa-pen-to-square"></i> 自定义七七的这封专属信件
+                    </h4>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-purple-800 mb-1">收件人称呼 (To):</label>
+                        <input type="text" id="inputTo" class="w-full px-3 py-1.5 text-xs bg-white border border-purple-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-purple-800 mb-1">照片 URL 链接 (网络图片):</label>
+                        <input type="url" id="inputPhoto" placeholder="https://..." class="w-full px-3 py-1.5 text-xs bg-white border border-purple-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-purple-800 mb-1">信件寄语内容:</label>
+                        <textarea id="inputText" rows="5" class="w-full px-3 py-1.5 text-xs bg-white border border-purple-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 custom-scrollbar"></textarea>
+                    </div>
+
+                    <div class="flex justify-end gap-2 pt-1">
+                        <button onclick="resetNodeData()" class="px-3 py-1 text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-bold transition-colors">恢复默认</button>
+                        <button onclick="saveNodeData()" class="px-4 py-1 text-xs bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-bold shadow transition-colors">保存改动</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-3 bg-purple-100 border-t-2 border-purple-950 text-center">
+                <button onclick="closeModal()" class="px-6 py-1.5 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-full sketch-btn shadow">
+                    把回忆收好 💜
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: BIRTHDAY CAKE & BLOW CANDLE INTERACTION -->
+    <div id="cakeModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-purple-950/60 backdrop-blur-sm hidden transition-opacity duration-300">
+        <div class="relative w-full max-w-sm paper-sketch sketch-box p-6 text-center space-y-4">
+            <h3 class="text-xl font-extrabold text-purple-950">🎂 七七的21岁许愿时刻</h3>
+            <p class="text-xs text-purple-700">点击下方的黄色蜡烛火焰，吹灭它们并许下21岁最美好的愿望吧！</p>
+
+            <!-- Hand-drawn Cake & Candle Illustration -->
+            <div class="relative py-4 flex flex-col items-center justify-center">
+                <!-- Candle & Flame -->
+                <div id="candleFlame" onclick="blowOutCandle()" class="cursor-pointer flex flex-col items-center transition-transform hover:scale-110">
+                    <div class="w-5 h-7 bg-amber-400 rounded-full border border-amber-600 flame-anim shadow-lg shadow-amber-300 flex items-center justify-center">
+                        <div class="w-2 h-3 bg-white rounded-full opacity-70"></div>
+                    </div>
+                    <div class="w-2 h-6 bg-purple-200 border border-purple-900 rounded-t"></div>
+                </div>
+
+                <!-- Smoke (Hidden initially) -->
+                <div id="candleSmoke" class="hidden text-xs text-gray-500 font-bold animate-bounce my-2">
+                    💨 愿望已发送，愿梦想全部成真~
+                </div>
+
+                <!-- Cake Base -->
+                <div class="w-44 h-20 bg-purple-300 border-3 border-purple-900 rounded-2xl flex flex-col items-center justify-center relative shadow-md mt-1">
+                    <span class="text-2xl">🍰✨</span>
+                    <span class="text-xs font-black text-purple-950 mt-1">HAPPY 21st BIRTHDAY!</span>
+                </div>
+            </div>
+
+            <div id="wishText" class="text-xs font-bold text-purple-800 bg-purple-100 p-2.5 rounded-lg border border-purple-300">
+                👉 点击黄色火焰吹灭蜡烛！
+            </div>
+
+            <button onclick="closeCakeModal()" class="px-6 py-1.5 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-full sketch-btn">
+                返回回忆之城 ✨
+            </button>
+        </div>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="bgm" loop preload="auto" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"></audio>
+
+    <script>
+        // Default Memory Nodes Data
+        const defaultMemories = [
+            {
+                id: 1,
+                name: "书本",
+                icon: "📚",
+                title: "Memory #1 · 初中教室的同窗时光",
+                to: "同桌卢秋彤",
+                text: "我们当时为什么会成为同桌来着，是我们自己争取的吗？虽然初中时光烂得宛如一坨屎，但是仍然庆幸在最后的日子里左右是你，让这层灰色的时光至少披上一层金色的光。",
+                photo: "https://raw.githubusercontent.com/0325joy/HBDtoLQT/refs/heads/main/1807.jpg",
+                tooltip: "1. 书本 📚 (初中时光)"
+            },
+            {
+                id: 2,
+                name: "纸飞机",
+                icon: "✈️",
+                title: "Memory #2 · 飞向未来的小纸条",
+                to: "未来的卢秋彤",
+                text: "从2018到现在，我们已经认识八年了（所以我写了八封信给你），对于十二三岁的卢秋彤来说，二十一岁已经是未来的一部分了。可是未来究竟是多久，十分钟还是十年，说不清楚。如果是十分钟后的卢秋彤，我祝她早安午安晚安、吃好玩好睡好；如果是十年后的卢秋彤，我祝她在喜欢的城市有自己的小家和小车，下班后迎着夕阳回家，吃她喜欢的大馒头和小青菜，鞋柜里有专属于王嘉伊和莫嘉颖的拖鞋，卢秋彤吃饱饭后，会邀请她们俩去河边散步。",
+                photo: "https://raw.githubusercontent.com/0325joy/HBDtoLQT/refs/heads/main/red.jpg",
+                tooltip: "2. 纸飞机 ✈️ (青春梦想)"
+            },
+            {
+                id: 3,
+                name: "行李箱",
+                icon: "🧳",
+                title: "Memory #3 · 一起探索世界的足迹",
+                to: "旅行搭子卢秋彤",
+                text: "我们还会一起拉上行李去很多地方旅行吧。泰国新加坡印度尼西亚巴黎土耳其爱沙尼亚……拉上行李箱，和最默契的你踏上旅程！无论走过哪座城市的街道，看过的海或吹过的风，只要有你在旁边，每一帧镜头都是值得珍藏的风景。",
+                photo: "https://raw.githubusercontent.com/0325joy/HBDtoLQT/refs/heads/main/inthecar.jpg",
+                tooltip: "3. 行李箱 🧳 (漫步足迹)"
+            },
+            {
+                id: 4,
+                name: "猫咪",
+                icon: "🐱",
+                title: "Memory #4 · 软萌温暖的日常陪伴",
+                to: "猫毛过敏的卢秋彤",
+                text: "祝你的过敏问题和肠胃困扰能够痊愈，这样如果我在家养五只猫，你也能天天来我家吃饭；但是不痊愈也没事，我去你家就好。",
+                photo: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80",
+                tooltip: "4. 猫咪 🐱 (治愈陪伴)"
+            },
+            {
+                id: 5,
+                name: "相机",
+                icon: "📷",
+                title: "Memory #5 · 咔嚓！定格的欢笑瞬间",
+                to: "镜头里的七七",
+                text: "好喜欢给你拍照鹅鹅鹅长得好爽，要给你拍到八十岁，如果那时候我们已经长满皱纹了，那就先打了肉毒素和热玛吉再去拍照。",
+                photo: "https://raw.githubusercontent.com/0325joy/HBDtoLQT/refs/heads/main/muse.jpg",
+                tooltip: "5. 相机 📷 (美好定格)"
+            },
+            {
+                id: 6,
+                name: "奶茶杯",
+                icon: "🧋",
+                title: "Memory #6 · 奶茶加糖与八卦快乐",
+                to: "陪我聊八卦的卢秋彤",
+                text: "希望我们总有炸裂的八卦和抓马的故事可以聊，但这些事不给发生在我们自己身上；那就希望我们讨厌的人一直倒霉下去吧^^",
+                photo: "https://raw.githubusercontent.com/0325joy/HBDtoLQT/refs/heads/main/hiking.jpg",
+                tooltip: "6. 奶茶杯 🧋 (甜蜜下午茶)"
+            },
+            {
+                id: 7,
+                name: "生日蛋糕",
+                icon: "🎂",
+                title: "Memory #7 · 11.1 卢七七21岁生日快乐!",
+                to: "寿星卢七七",
+                text: "🎉 11.1 Happy 21st Birthday! 祝我的好朋友卢七七21岁生日快乐！希望你可以越来越好，好指的是可以好好吃饭，按时休息，保持健康，是越生长内心越平静温和，是坦然拒绝他人的请求而不内疚，是更坚定地选择理想生活，是凭自己照顾好所爱的人，是永远保持真诚，是学会好好爱自己、好好地努力生活。很高兴认识你，一直都是这样。",
+                photo: "https://raw.githubusercontent.com/0325joy/HBDtoLQT/refs/heads/main/hbd.jpg",
+                tooltip: "7. 生日蛋糕 🎂 (11.1 专属)"
+            },
+            {
+                id: 8,
+                name: "黑胶唱片",
+                icon: "🎵",
+                title: "Memory #8 · 我们专属的同频歌单",
+                to: "喜欢唱always online的卢秋彤",
+                text: "回柳州记得约我唱KTV，点一盒鸡柳大人和三杯奶茶，唱到我们累到躺在沙发上……",
+                photo: "https://raw.githubusercontent.com/0325joy/HBDtoLQT/refs/heads/main/travel.jpg",
+                tooltip: "8. 唱片 🎵 (同频默契)"
+            }
+        ];
+
+        let memories = JSON.parse(localStorage.getItem('lu_qiqi_21st_memories')) || [...defaultMemories];
+        let activeNodeId = null;
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.remove('-translate-y-full', 'opacity-0');
+            }, 10);
+            setTimeout(() => {
+                toast.classList.add('-translate-y-full', 'opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 2500);
+        }
+
+        function getHeartPositions() {
+            // Standard, plump, and perfectly symmetrical heart contour positions
+            return [
+                { id: 1, left: '30%', top: '18%' }, // 1: Books (Top Left Peak)
+                { id: 2, left: '70%', top: '18%' }, // 2: Airplane (Top Right Peak)
+                { id: 3, left: '12%', top: '38%' }, // 3: Suitcase (Upper Outer Left Curve)
+                { id: 4, left: '88%', top: '38%' }, // 4: Cat (Upper Outer Right Curve)
+                { id: 5, left: '18%', top: '64%' }, // 5: Camera (Lower Outer Left Slope)
+                { id: 6, left: '82%', top: '64%' }, // 6: Boba (Lower Outer Right Slope)
+                { id: 7, left: '35%', top: '83%' }, // 7: Cake (Bottom Left Apex Slope)
+                { id: 8, left: '65%', top: '83%' }  // 8: Music (Bottom Right Apex Slope)
+            ];
+        }
+
+        function renderHeartNodes() {
+            const container = document.getElementById('heartContainer');
+            const positions = getHeartPositions();
+
+            // Clear previously rendered node elements except SVG and center text
+            const existingNodes = container.querySelectorAll('.node-btn');
+            existingNodes.forEach(n => n.remove());
+
+            positions.forEach(pos => {
+                const item = memories.find(m => m.id === pos.id);
+                if (!item) return;
+
+                const btn = document.createElement('button');
+                btn.className = `node-btn absolute -translate-x-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 bg-white sketch-btn flex items-center justify-center text-xl sm:text-2xl shadow-md transition-all cursor-pointer hover:bg-purple-100 hover:scale-110 z-20 group`;
+                btn.style.left = pos.left;
+                btn.style.top = pos.top;
+                btn.onclick = () => openMemoryModal(item.id);
+
+                btn.innerHTML = `
+                    <span class="group-hover:animate-bounce">${item.icon}</span>
+                    <span class="absolute -bottom-1 -right-1 w-5 h-5 bg-purple-700 text-white font-bold text-[10px] rounded-md flex items-center justify-center border border-white shadow-xs">
+                        ${item.id}
+                    </span>
+                    <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-purple-900 text-white text-[10px] px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md border border-purple-300 z-30">
+                        ${item.tooltip}
+                    </div>
+                `;
+
+                container.appendChild(btn);
+            });
+        }
+
+        function openMemoryModal(id) {
+            activeNodeId = id;
+            const data = memories.find(m => m.id === id);
+            if (!data) return;
+
+            document.getElementById('modalIcon').innerText = data.icon;
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalTo').innerText = data.to;
+            document.getElementById('modalText').innerText = data.text;
+            document.getElementById('modalPhoto').src = data.photo;
+
+            // Pre-fill Edit inputs
+            document.getElementById('inputTo').value = data.to;
+            document.getElementById('inputPhoto').value = data.photo;
+            document.getElementById('inputText').value = data.text;
+
+            // Reset view state to display
+            document.getElementById('displayArea').classList.remove('hidden');
+            document.getElementById('editArea').classList.add('hidden');
+
+            document.getElementById('letterModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('letterModal').classList.add('hidden');
+        }
+
+        function toggleEditMode() {
+            const display = document.getElementById('displayArea');
+            const edit = document.getElementById('editArea');
+            display.classList.toggle('hidden');
+            edit.classList.toggle('hidden');
+        }
+
+        function saveNodeData() {
+            if (!activeNodeId) return;
+
+            const index = memories.findIndex(m => m.id === activeNodeId);
+            if (index !== -1) {
+                memories[index].to = document.getElementById('inputTo').value;
+                memories[index].photo = document.getElementById('inputPhoto').value;
+                memories[index].text = document.getElementById('inputText').value;
+
+                localStorage.setItem('lu_qiqi_21st_memories', JSON.stringify(memories));
+                openMemoryModal(activeNodeId);
+                showToast("✨ 信件保存成功！");
+            }
+        }
+
+        function resetNodeData() {
+            if (!activeNodeId) return;
+            const def = defaultMemories.find(m => m.id === activeNodeId);
+            if (def) {
+                const index = memories.findIndex(m => m.id === activeNodeId);
+                memories[index] = { ...def };
+                localStorage.setItem('lu_qiqi_21st_memories', JSON.stringify(memories));
+                openMemoryModal(activeNodeId);
+                showToast("🔄 已恢复为默认记忆内容！");
+            }
+        }
+
+        // Birthday Cake Modal Functions
+        function triggerCakeModal() {
+            document.getElementById('candleFlame').classList.remove('hidden');
+            document.getElementById('candleSmoke').classList.add('hidden');
+            document.getElementById('wishText').innerText = "👉 点击黄色火焰吹灭蜡烛！";
+            document.getElementById('cakeModal').classList.remove('hidden');
+        }
+
+        function closeCakeModal() {
+            document.getElementById('cakeModal').classList.add('hidden');
+        }
+
+        function blowOutCandle() {
+            document.getElementById('candleFlame').classList.add('hidden');
+            document.getElementById('candleSmoke').classList.remove('hidden');
+            document.getElementById('wishText').innerText = "✨ 吹灭啦！祝七七21岁美梦全实现！✨";
+
+            // Trigger Confetti Celebration
+            if (window.confetti) {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        // BGM Toggle
+        let isPlaying = false;
+        function toggleMusic() {
+            const audio = document.getElementById('bgm');
+            const icon = document.getElementById('musicIcon');
+            const text = document.getElementById('musicText');
+
+            if (isPlaying) {
+                audio.pause();
+                icon.className = "fa-solid fa-music text-purple-500";
+                text.innerText = "背景音乐: 关";
+            } else {
+                audio.play().then(() => {
+                    icon.className = "fa-solid fa-compact-disc text-purple-600 animate-spin";
+                    text.innerText = "背景音乐: 开";
+                }).catch(() => {
+                    showToast("🎵 请点击页面任意位置以播放音乐~");
+                });
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Initialize App on Page Load
+        window.onload = function() {
+            renderHeartNodes();
+        };
+    </script>
+</body>
+</html>
